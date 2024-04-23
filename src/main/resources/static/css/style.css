@@ -1,0 +1,254 @@
+/* ==========================================================
+   Modern Quiz Application Design System
+   ========================================================== */
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  --surface-card: rgba(30, 41, 59, 0.85);
+  --surface-card-hover: rgba(51, 65, 85, 0.9);
+  --surface-border: rgba(148, 163, 184, 0.15);
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-glow: rgba(99, 102, 241, 0.35);
+  --accent: #ec4899;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.quiz-navbar {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0.85rem 0;
+}
+
+.quiz-brand {
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quiz-brand i {
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #fff !important;
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* Main Content Area */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem 0;
+}
+
+/* Glass Cards */
+.quiz-card {
+  background: var(--surface-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Buttons */
+.btn-primary-custom {
+  background: linear-gradient(135deg, var(--primary) 0%, #4338ca 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--primary-glow);
+  transition: all 0.25s ease;
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--primary-glow);
+  color: #fff;
+}
+
+.btn-secondary-custom {
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid var(--surface-border);
+  color: var(--text-main);
+  font-weight: 600;
+  padding: 0.75rem 1.8rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-custom:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: #fff;
+}
+
+/* Question Option Cards (Interactive Selection) */
+.option-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1.5px solid var(--surface-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.option-label:hover {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateX(4px);
+}
+
+.option-radio {
+  display: none;
+}
+
+.option-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-muted);
+  font-weight: 700;
+  border-radius: 8px;
+  margin-right: 14px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.option-text {
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin-bottom: 0;
+}
+
+/* Selected state via CSS peer/adjacent selector */
+.option-radio:checked + .option-label {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: var(--primary);
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.option-radio:checked + .option-label .option-badge {
+  background: var(--primary);
+  color: #fff;
+}
+
+.option-radio:checked + .option-label .option-text {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Badges & Pills */
+.badge-pill-soft {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Leaderboard Table */
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.custom-table thead th {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  padding: 12px 18px;
+}
+
+.custom-table tbody tr {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(30, 41, 59, 0.9);
+  transform: scale(1.01);
+}
+
+.custom-table tbody td {
+  padding: 16px 18px;
+  border: none;
+  vertical-align: middle;
+}
+
+.custom-table tbody td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.custom-table tbody td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Footer */
+.quiz-footer {
+  background: rgba(15, 23, 42, 0.9);
+  border-top: 1px solid var(--surface-border);
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}

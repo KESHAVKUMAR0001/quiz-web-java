@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Java Quiz Pro</title>
+    <div th:replace="~{navbar :: headerfiles}"></div>
+</head>
+<body>
+
+    <!-- Navbar Fragment -->
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <main class="main-wrapper">
+        <div class="container py-4">
+
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <span class="badge badge-pill-soft mb-2">
+                    <i class="bi bi-trophy-fill text-warning me-1"></i> Hall of Fame
+                </span>
+                <h2 class="display-6 fw-bold text-white mb-2">Quiz Leaderboard</h2>
+                <p class="text-muted">Rankings based on highest score, accuracy, and completion date.</p>
+            </div>
+
+            <!-- Leaderboard Card -->
+            <div class="quiz-card p-4 p-md-5">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h4 class="text-white mb-0 fw-bold">Top Candidates</h4>
+                        <small class="text-muted" th:text="${scores != null ? scores.size() : 0} + ' submissions logged'">0 submissions logged</small>
+                    </div>
+                    <a href="/" class="btn btn-primary-custom d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-play-circle-fill"></i> Take Quiz Challenge
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">Rank</th>
+                                <th>Candidate</th>
+                                <th>Score</th>
+                                <th>Accuracy</th>
+                                <th>Submitted On</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Empty State -->
+                            <tr th:if="${scores == null or scores.isEmpty()}">
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox fs-2 d-block mb-2 text-secondary"></i>
+                                    No quiz submissions yet. Be the first one to take the quiz!
+                                </td>
+                            </tr>
+
+                            <!-- Records -->
+                            <tr th:each="score, iter : ${scores}">
+                                <td>
+                                    <span th:if="${iter.count == 1}" class="badge bg-warning text-dark px-2 py-1 fs-6">🥇 #1</span>
+                                    <span th:if="${iter.count == 2}" class="badge bg-secondary text-white px-2 py-1 fs-6">🥈 #2</span>
+                                    <span th:if="${iter.count == 3}" class="badge bg-info text-dark px-2 py-1 fs-6">🥉 #3</span>
+                                    <span th:if="${iter.count > 3}" class="text-muted fw-semibold ms-2" th:text="'#' + ${iter.count}">#4</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="p-2 rounded-circle bg-dark text-primary small">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+                                        <span class="text-white fw-medium" th:text="${score.username}">Candidate Name</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="text-white fw-bold" th:text="${score.totalCorrect} + ' / ' + ${score.totalQuestions}">5 / 5</span>
+                                </td>
+                                <td>
+                                    <span th:class="${score.percentage >= 80} ? 'text-success fw-bold' : (${score.percentage >= 50} ? 'text-warning fw-bold' : 'text-danger fw-bold')"
+                                          th:text="${#numbers.formatDecimal(score.percentage, 1, 1)} + '%'">
+                                        100.0%
+                                    </span>
+                                </td>
+                                <td class="text-muted small" th:text="${score.formattedDate}">
+                                    26 Oct 2026, 06:15 PM
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{footer :: footer}"></div>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

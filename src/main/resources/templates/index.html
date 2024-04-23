@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Quiz Pro - Spring Boot College Project</title>
+    <div th:replace="~{navbar :: headerfiles}"></div>
+</head>
+<body>
+
+    <!-- Navbar Fragment -->
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <div class="container py-4">
+            <div class="row align-items-center g-5">
+                
+                <!-- Left Hero Information -->
+                <div class="col-lg-6">
+                    <div class="pe-lg-4">
+                        <span class="badge badge-pill-soft mb-3">
+                            <i class="bi bi-patch-check-fill text-primary me-1"></i> Java OOP &amp; Core Concepts
+                        </span>
+                        <h1 class="display-5 fw-bold mb-3 text-white">
+                            Test Your Java Knowledge in Real-Time
+                        </h1>
+                        <p class="lead text-muted mb-4">
+                            An interactive Spring Boot application built with Spring Data JPA and Thymeleaf. Challenge yourself on core Java concepts, multithreading, collections, and OOP.
+                        </p>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <div class="p-3 rounded-3" style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--surface-border);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="p-2 rounded-2 bg-primary bg-opacity-25 text-primary fs-4">
+                                            <i class="bi bi-shuffle"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 text-white">Randomized Pool</h6>
+                                            <small class="text-muted">Unique questions every attempt</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-3 rounded-3" style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--surface-border);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="p-2 rounded-2 bg-success bg-opacity-25 text-success fs-4">
+                                            <i class="bi bi-shield-check"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 text-white">Secure Evaluation</h6>
+                                            <small class="text-muted">Server-side answer checking</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 text-muted small">
+                            <span><i class="bi bi-check-circle-fill text-success me-1"></i> Instant Feedback</span>
+                            <span><i class="bi bi-check-circle-fill text-success me-1"></i> Hall of Fame</span>
+                            <span><i class="bi bi-check-circle-fill text-success me-1"></i> Zero-Config In-Memory DB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero: Quiz Starter Form -->
+                <div class="col-lg-6">
+                    <div class="quiz-card p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <div class="d-inline-flex p-3 rounded-circle bg-primary bg-opacity-10 text-primary mb-3">
+                                <i class="bi bi-lightning-charge-fill fs-2"></i>
+                            </div>
+                            <h3 class="fw-bold text-white mb-1">Start Quiz Challenge</h3>
+                            <p class="text-muted small">Enter your details below to begin</p>
+                        </div>
+
+                        <!-- Flash Warning Message -->
+                        <div th:if="${warning}" class="alert alert-warning alert-dismissible fade show border-0 d-flex align-items-center gap-2" role="alert" style="background: rgba(245, 158, 11, 0.15); color: #fcd34d;">
+                            <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                            <span th:text="${warning}"></span>
+                            <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <form th:action="@{/quiz}" method="POST">
+                            <div class="mb-4">
+                                <label for="usernameInput" class="form-label text-light fw-medium">Student / Candidate Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-dark border-secondary text-muted">
+                                        <i class="bi bi-person-fill"></i>
+                                    </span>
+                                    <input type="text" id="usernameInput" name="username" class="form-control bg-dark border-secondary text-white py-2" placeholder="e.g. John Doe" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="questionCountSelect" class="form-label text-light fw-medium">Number of Questions</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-dark border-secondary text-muted">
+                                        <i class="bi bi-question-circle"></i>
+                                    </span>
+                                    <select id="questionCountSelect" name="questionCount" class="form-select bg-dark border-secondary text-white py-2">
+                                        <option value="5" selected>5 Questions (Quick Test)</option>
+                                        <option value="8">8 Questions (Standard Challenge)</option>
+                                        <option value="10">10 Questions (Comprehensive Exam)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary-custom w-100 py-3 d-flex align-items-center justify-content-center gap-2 fs-6">
+                                <span>Begin Quiz</span>
+                                <i class="bi bi-arrow-right-circle-fill fs-5"></i>
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <a href="/scoreboard" class="text-muted text-decoration-none small hover-link">
+                                <i class="bi bi-trophy text-warning me-1"></i> View All-Time Leaderboard &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{footer :: footer}"></div>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
